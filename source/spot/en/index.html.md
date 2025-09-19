@@ -16,7 +16,7 @@ headingLevel: 2
 ## Version 3.4.16 (22th September 2025)
 
 * In the API [Create new order](#create-new-order)
-, a new request field triggerPriceType has been added. For the following order types, users can now specify whether the trigger price is based on indexPrice or lastPrice (default: indexPrice):
+, a new request field triggerPriceType has been added. For the following order types, users can now specify whether the trigger price is based on `INDEX_PRICE` or LAST_PRICE (default: `INDEX_PRICE`):
   * Stop Limit
   * Stop Market
   * Take Profit Limit
@@ -931,7 +931,7 @@ Creates a new order. Requires `Trading` permission. Please note that Index Order
 | clOrderID     | String  | No       | Custom order Id                                                                                                                                                                                                                                                                                                                                                    |
 | stealth       | Double  | No       | Mandatory when creating a PEG order. How many percent of the order is to be displayed on the orderbook.                                                                                                                                                                                                                                                            |
 | deviation     | Double  | No       | For PEG order. How much should the order price deviate from index price. Value is in percentage and can range from `-10` to `10`                                                                                                                                                                                                                                   |
-| triggerPriceType     | String  | No      | For the following order types, users can specify whether the trigger price is based on `indexPrice` or `lastPrice` (default: `indexPrice`):<br/>Stop Limit<br/>Stop Market<br/>Take Profit Limit<br/>Take Profit Market<br/>Trailing Stop Market<br/>OCO (One Cancels the Other)<br/> |
+| triggerPriceType     | String  | No      | For the following order types, users can specify whether the trigger price is based on `INDEX_PRICE` or `LAST_PRICE` (default: `INDEX_PRICE`):<br/>Stop Limit<br/>Stop Market<br/>Take Profit Limit<br/>Take Profit Market<br/>Trailing Stop Market<br/>OCO (One Cancels the Other)<br/> |
 
 
 

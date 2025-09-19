@@ -15,7 +15,7 @@ headingLevel: 2
 
 ## 版本 1.0.1 (2025年9月22日)
 
-* 在 API [`创建新订单`](#8be954be0d) 中，新增请求字段 `triggerPriceType` ，对于以下订单类型，用户现在可以指定触发价格基于 `INDEXPRICE` 或 `LASTPRICE`（默认：`INDEXPRICE`）：
+* 在 API [`创建新订单`](#8be954be0d) 中，新增请求字段 `triggerPriceType` ，对于以下订单类型，用户现在可以指定触发价格基于 `INDEX_PRICE` 或 `LAST_PRICE`（默认：`INDEX_PRICE`）：
   * 止损限价单
   * 止损市价单
   * 止盈限价单
@@ -829,7 +829,7 @@ BTSE的速率限制如下:
 | clOrderID     | String  | No      | 自定义订单ID                                                                                                                                                                                                                                                                                                                                            |
 | stealth       | Double  | No      | 创建 PEG 订单时为是否必须项。要在订单簿上显示多少百分比的订单。                                                                                                                                                                                                                                                                                               |
 | deviation     | Double  | No      | 适用于 PEG 订单。订单价格应与指数价格相差多少。该值以百分比表示，范围从 -10 到 10                                                                                                                                                                                                                                                                      |
-| triggerPriceType     | String  | No      | 对于以下订单类型，用户现在可以指定触发价格基于 `INDEXPRICE` 或 `LASTPRICE`，默认为 `INDEXPRICE` :<br/>止损限价单<br/>止损市价单<br/>止盈限价单<br/>止盈市价单<br/>跟踪止损市价单<br/>OCO（双向委托单）<br/>                                                                                                                                                                                                                                                                      |
+| triggerPriceType     | String  | No      | 对于以下订单类型，用户现在可以指定触发价格基于 `INDEX_PRICE` 或 `LASTPRICE`，默认为 `INDEX_PRICE` :<br/>止损限价单<br/>止损市价单<br/>止盈限价单<br/>止盈市价单<br/>跟踪止损市价单<br/>OCO（双向委托单）<br/>                                                                                                                                                                                                                                                                      |
 
 
 ### 响应内容

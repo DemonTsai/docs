@@ -13,6 +13,19 @@ headingLevel: 2
 
 # Change Log
 
+## Version 1.0.1 (3rd December 2025, these changes will take effect on 11th January 2026.)
+
+* Update the description for the following response fields in [`Market Summary`](#market-summary):
+  * `minRiskLimit`, `maxRiskLimit`, `maxPosition` will now be represented in notional value instead of contract-based units.
+* For [`Market Risk Limit Setting`](#market-risk-limit-setting):
+  * `riskLimitValue` will now be represented in notional value instead of contract-based units.
+* For [`Get Risk Limit`](#get-risk-limit):
+  * `riskLimit` will now be represented in notional value instead of contract-based units.
+  * A new field `riskLimitLevel` will be added to the response to indicate the current risk limit tier.
+* For [`Set Risk Limit`](#set-risk-limit):
+  * A new required request field `riskLimitLevel` will be added to specify which risk limit tier should be applied. 
+  * `riskLimit` will be no longer accepted in the request; please use `riskLimitLevel` instead.
+
 ## Version 1.0.0 (10th July 2025)
 
 * Release V2.3 API. This change will take effect on 16th July, 2025.
@@ -353,9 +366,9 @@ Gets market summary information. If no symbol parameter is sent, then all market
 | inactiveTime        | Long    | Yes      | Time where market is inactive                                                                         |
 | fundingRate         | Double  | No       | The funding rate                                                                      |
 | contractSize        | Double  | No       | Size of one contract                                                                                  |
-| maxPosition         | Double  | No       | Maximum position a user is allowed to have `Will no longer be applicable after risk limit adjustment` |
-| minRiskLimit        | Double  | No       | Minimum risk limit in contract size  `Will be changed to USD value`                                   |
-| maxRiskLimit        | Double  | No       | Maximum risk limit Integer contract size `Will be changed to USD value`                                   |
+| maxPosition         | Double  | No       | Maximum position in notional value that each user is allowed to have. |
+| minRiskLimit        | Double  | No       | Minimum risk limit in notional value                                   |
+| maxRiskLimit        | Double  | No       | Maximum risk limit in notional value                                   |
 | availableSettlement | Array   | No       | Currencies available for settlement                                                                   |
 | futures             | Boolean | Yes      | Indicator if symbol is a futures contract                                                             |
 | fundingIntervalMinutes             | Integer | No      | Funding interval, only display when param `listFullAttributes` is true|
@@ -650,82 +663,82 @@ Get funding rate history for certain symbols
         {
             "symbol": "SOL-PERP",
             "riskLevel": 1,
-            "riskLimitValue": 10000,
-            "initialMarginRate": 0.02,
-            "maintenanceMarginRate": 0.015,
-            "maxLeverage": 50
+            "riskLimitValue": 50000,
+            "initialMarginRate": 0.01,
+            "maintenanceMarginRate": 0.005,
+            "maxLeverage": 100
         },
         {
             "symbol": "SOL-PERP",
             "riskLevel": 2,
-            "riskLimitValue": 20000,
-            "initialMarginRate": 0.025,
-            "maintenanceMarginRate": 0.02,
-            "maxLeverage": 40
+            "riskLimitValue": 400000,
+            "initialMarginRate": 0.0133,
+            "maintenanceMarginRate": 0.0073,
+            "maxLeverage": 75
         },
         {
             "symbol": "SOL-PERP",
             "riskLevel": 3,
-            "riskLimitValue": 30000,
-            "initialMarginRate": 0.03,
-            "maintenanceMarginRate": 0.025,
-            "maxLeverage": 33.33
+            "riskLimitValue": 1000000,
+            "initialMarginRate": 0.02,
+            "maintenanceMarginRate": 0.012,
+            "maxLeverage": 50
         },
         {
             "symbol": "SOL-PERP",
             "riskLevel": 4,
-            "riskLimitValue": 40000,
-            "initialMarginRate": 0.035,
-            "maintenanceMarginRate": 0.03,
-            "maxLeverage": 28.57
-        },
-        {
-            "symbol": "SOL-PERP",
-            "riskLevel": 5,
-            "riskLimitValue": 50000,
-            "initialMarginRate": 0.04,
-            "maintenanceMarginRate": 0.035,
-            "maxLeverage": 25
-        },
-        {
-            "symbol": "SOL-PERP",
-            "riskLevel": 6,
-            "riskLimitValue": 60000,
-            "initialMarginRate": 0.045,
-            "maintenanceMarginRate": 0.04,
-            "maxLeverage": 22.22
-        },
-        {
-            "symbol": "SOL-PERP",
-            "riskLevel": 7,
-            "riskLimitValue": 70000,
+            "riskLimitValue": 6000000,
             "initialMarginRate": 0.05,
-            "maintenanceMarginRate": 0.045,
+            "maintenanceMarginRate": 0.033,
             "maxLeverage": 20
         },
         {
             "symbol": "SOL-PERP",
+            "riskLevel": 5,
+            "riskLimitValue": 40000000,
+            "initialMarginRate": 0.1,
+            "maintenanceMarginRate": 0.068,
+            "maxLeverage": 10
+        },
+        {
+            "symbol": "SOL-PERP",
+            "riskLevel": 6,
+            "riskLimitValue": 100000000,
+            "initialMarginRate": 0.20,
+            "maintenanceMarginRate": 0.138,
+            "maxLeverage": 5
+        },
+        {
+            "symbol": "SOL-PERP",
+            "riskLevel": 7,
+            "riskLimitValue": 175000000,
+            "initialMarginRate": 0.25,
+            "maintenanceMarginRate": 0.173,
+            "maxLeverage": 4
+        },
+        {
+            "symbol": "SOL-PERP",
             "riskLevel": 8,
-            "riskLimitValue": 80000,
-            "initialMarginRate": 0.055,
-            "maintenanceMarginRate": 0.05,
-            "maxLeverage": 18.18
+            "riskLimitValue": 225000000,
+            "initialMarginRate": 0.3333,
+            "maintenanceMarginRate": 0.2313,
+            "maxLeverage": 3
         },
         {
             "symbol": "SOL-PERP",
             "riskLevel": 9,
-            "riskLimitValue": 90000,
-            "initialMarginRate": 0.06,
-            "maintenanceMarginRate": 0.055,
-            "maxLeverage": 16.67
+            "riskLimitValue": 300000000,
+            "initialMarginRate": 0.50,
+            "maintenanceMarginRate": 0.348,
+            "maxLeverage": 2
         },
         {
             "symbol": "SOL-PERP",
             "riskLevel": 10,
-            "riskLimitValue": 100000,
-            "initialMarginRate": 0.065,
-            "maintenanceMarginRate": 0.06,
-            "maxLeverage": 15.38
+            "riskLimitValue": 400000000,
+            "initialMarginRate": 1.00,
+            "maintenanceMarginRate": 0.698,
+            "maxLeverage": 1
         }
     ],
     "success": true
@@ -770,7 +783,7 @@ Gets all default market settings, including initial margin and maintenance margi
 | ---                      | ---      | ---      | ---                                                                                                   |
 | symbol                   | String   | Yes      | Market symbol                                                                                                |
 | riskLevel                | Integer  | Yes      | Risk level                                                                                                 |
-| riskLimitValue           | Integer  | Yes      | Risk limit value for current risk level in coin size                                                                                                  |
+| riskLimitValue       | Integer  | Yes      | Risk limit value in notional value  |
 | initialMarginRate        | Double   | Yes      | Initial margin rate                                                                                     |
 | maintenanceMarginRate    | Double   | Yes      | Maintenance margin rate                                                                                                  |
 | maxLeverage              | Double   | Yes      | Max leverage for current risk level                                                                                                  |
@@ -1962,7 +1975,8 @@ Closes a user's position for the particular market as specified by symbol. If ty
 ```json
 {
     "symbol": "BTC-PERP",
-    "riskLimit": 100000
+    "riskLimit": 3000000,
+    "riskLimitLevel": 1
 }
 ```
 `GET /api/v2.3/risk_limit`
@@ -1977,10 +1991,11 @@ Query risk limit for the specified market. Requires `Read` permission.
 
 ### Response Content
 
-| Name      | Type    | Required | Description|
-| ---       | ---     | ---      | --- |
-| symbol    | String  | Yes      | Market symbol  |
-| riskLimit | Long    | Yes      | Risk limit value now in position size, but will be changed to USD value along with futures market name change |
+| Name           | Type    | Required | Description|
+| ---            | ---     | ---      | --- |
+| symbol         | String  | Yes      | Market symbol  |
+| riskLimit      | Long    | Yes      | Risk limit value in notional value |
+| riskLimitLevel | Integer | Yes      | Current Risk Limit Tier |nge |
 
 ## Set Risk Limit
 
@@ -1989,7 +2004,7 @@ Query risk limit for the specified market. Requires `Read` permission.
 ```json
 {
   "symbol": "BTC-PERP",
-  "riskLimit": 0
+  "riskLimitLevel": 2
 }
 ```
 
@@ -1998,7 +2013,7 @@ Query risk limit for the specified market. Requires `Read` permission.
 ```json
 {
     "symbol": "BTC-PERP",
-    "riskLimit": 100000,
+    "riskLimitLevel": 3,
     "positionMode": "HEDGE"
 }
 ```
@@ -2024,7 +2039,8 @@ Changes risk limit for the specified market. Requires `Trading` permission.
 | Name               | Type    | Required | Description                                                                               |
 | ---                | ---     | ---      |-------------------------------------------------------------------------------------------|
 | symbol             | String  | Yes      | Market symbol                                                                             |
-| riskLimit          | Long    | Yes      | Risk limit value now in position size, but it will be changed to USD value in the future. |
+| riskLimit `(Deprecated)`         | Long    | Yes      | Risk limit value  |
+| riskLimitLevel                   | Integer | Yes      | Risk limit level now need to be applied  |
 | positionMode       | String  | no       | ONE_WAY(default) or HEDGE. Mandatory when positionMode is `HEDGE` or `ISOLATED`                         |
 
 ### Response Content

@@ -13,6 +13,12 @@ headingLevel: 2
 
 # Change Log
 
+## Version 1.1.4 (8th December 2025)
+
+* Updated documentation to clarify the behavior difference in symbol representation between Market and Wallet-related APIs.
+  - The [Market Summary](https://btsecom.github.io/docs/futuresV2_3/en/#market-summary) API uses K/M/B prefixed symbols in the symbol field for crypto assets with small prices and processes trade quantities accordingly. Example: `K_PEIPEI`
+  - Wallet-related APIs here now consistently use the original crypto name (without K/M/B prefix) for both request and response payloads. This matches the base field shown in the [Market Summary](https://btsecom.github.io/docs/futuresV2_3/en/#market-summary) API. Example: `PEIPEI`
+
 ## Version 1.1.3 (10th July 2025)
 
 * [**IMPORTANT**] BTSE will phase out support for two open API endpoints by **July 30, 2025**. The following endpoints will be deprecated:
@@ -148,6 +154,10 @@ Each API will return one of the following HTTP status:
 * 500 - Internal server error. Indicates that the server encountered an unexpected condition resulting in not being able to fulfill the request
 
 # Public Endpoints
+
+For crypto with small prices, the [Market Summary](https://btsecom.github.io/docs/futuresV2_3/en/#market-summary) API displays them using K/M/B prefixes in `symbol` field and process trades with the corresponding quantities. (ex. `K_PEIPEI`) 
+
+However, Wallet-related APIs display the actual crypto information, so both requests and responses will use the original crypto name, same as `base` field in [Market Summary](https://btsecom.github.io/docs/futuresV2_3/en/#market-summary) API. (ex. `PEIPEI`)
 
 ## Query available crypto network list for currency (Deprecated)
 

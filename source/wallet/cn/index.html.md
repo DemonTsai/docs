@@ -13,6 +13,12 @@ headingLevel: 2
 
 # 更新日志
 
+## 版本 1.1.4 (2025年12月8日)
+
+* 更新文档以澄清 `市场` 与 `钱包` 相关 API 在符号表示上的行为差异。
+  - [`市场摘要`](https://btsecom.github.io/docs/futuresV2_3/cn/#7335b2436c) API 会在 symbol 字段中使用 K/M/B 前缀来表示低价加密资产，并根据对应数量进行处理。例如：`K_PEIPEI`
+  - 此处的 Wallet 相关 API 将始终使用原始的加密货币名称（不带 K/M/B 前缀）作为请求与返回字段。这与 [`市场摘要`](https://btsecom.github.io/docs/futuresV2_3/cn/#7335b2436c) API 中的 base 字段一致。例如：`PEIPEI`
+
 ## 版本 1.1.3 (2025年7月10日)
 
 * [**重要**] BTSE 将于 2025年7月10日 起逐步停止支持以下两个 Open API 接口。以下接口将被弃用:
@@ -146,6 +152,10 @@ BTSE 的速率限制如下：
 * 500 - 内部服务器错误。表示服务器遇到意外情况，不能完成请求
 
 # 公共端点
+
+对于价格较小的加密货币，[`市场摘要`](https://btsecom.github.io/docs/futuresV2_3/cn/#7335b2436c) 会在 `symbol` 字段中使用 K/M/B 前缀进行展示，并按对应数量进行交易处理。（例如：`K_PEIPEI`）
+
+然而，与钱包相关的 API 会展示实际的加密货币信息，因此无论是请求或响应都将使用原始加密货币名称，与 [`市场摘要`](https://btsecom.github.io/docs/futuresV2_3/cn/#7335b2436c) 中的 `base` 字段一致。（例如：`PEIPEI`）
 
 ## 查询货币的可用加密网络列表（弃用）
 

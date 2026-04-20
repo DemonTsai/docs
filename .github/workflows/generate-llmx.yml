@@ -36,7 +36,7 @@ jobs:
       - name: Extract API endpoints
         run: |
           BASE_REF=""
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
+          if [ "${{ github.event_name }}" = "pull_request_target" ]; then
             BASE_REF="${{ github.event.pull_request.base.sha }}"
           elif [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
             BASE_REF="${{ github.event.before }}"
@@ -52,7 +52,7 @@ jobs:
       # On pull_request: post (or update) a single delta comment on the PR
       # -----------------------------------------------------------------------
       - name: Post delta comment on PR
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request_target'
         uses: actions/github-script@v7
         with:
           script: |

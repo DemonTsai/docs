@@ -234,6 +234,12 @@
             <a href="#change-log" class="toc-h1 toc-link" data-title="Change Log">Change Log</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#version-1-1-4-8th-december-2025" class="toc-h2 toc-link" data-title="Version 1.1.4 (8th December 2025)">Version 1.1.4 (8th December 2025)</a>
+                  </li>
+                  <li>
+                    <a href="#version-1-1-3-10th-july-2025" class="toc-h2 toc-link" data-title="Version 1.1.3 (10th July 2025)">Version 1.1.3 (10th July 2025)</a>
+                  </li>
+                  <li>
                     <a href="#version-1-1-2-10th-april-2024" class="toc-h2 toc-link" data-title="Version 1.1.2 (10th April 2024)">Version 1.1.2 (10th April 2024)</a>
                   </li>
                   <li>
@@ -283,10 +289,16 @@
             <a href="#public-endpoints" class="toc-h1 toc-link" data-title="Public Endpoints">Public Endpoints</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#query-available-crypto-network-list-for-currency" class="toc-h2 toc-link" data-title="Query available crypto network list for currency">Query available crypto network list for currency</a>
+                    <a href="#query-available-crypto-network-list-for-currency-deprecated" class="toc-h2 toc-link" data-title="Query available crypto network list for currency (Deprecated)">Query available crypto network list for currency (Deprecated)</a>
                   </li>
                   <li>
-                    <a href="#query-exchange-rate-between-assets" class="toc-h2 toc-link" data-title="Query exchange rate between assets">Query exchange rate between assets</a>
+                    <a href="#query-exchange-rate-between-assets-deprecated" class="toc-h2 toc-link" data-title="Query exchange rate between assets (Deprecated)">Query exchange rate between assets (Deprecated)</a>
+                  </li>
+                  <li>
+                    <a href="#query-crypto-networks" class="toc-h2 toc-link" data-title="Query Crypto Networks">Query Crypto Networks</a>
+                  </li>
+                  <li>
+                    <a href="#query-asset-exchange-rate" class="toc-h2 toc-link" data-title="Query Asset Exchange Rate">Query Asset Exchange Rate</a>
                   </li>
               </ul>
           </li>
@@ -332,7 +344,33 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='change-log'>Change Log</h1><h2 id='version-1-1-2-10th-april-2024'>Version 1.1.2 (10th April 2024)</h2>
+        <h1 id='change-log'>Change Log</h1><h2 id='version-1-1-4-8th-december-2025'>Version 1.1.4 (8th December 2025)</h2>
+<ul>
+<li>Updated documentation to clarify the behavior difference in symbol representation between Market and Wallet-related APIs.
+
+<ul>
+<li>The <a href="https://btsecom.github.io/docs/futuresV2_3/en/#market-summary">Market Summary</a> API uses K/M/B prefixed symbols in the symbol field for crypto assets with small prices and processes trade quantities accordingly. Example: <code>K_PEIPEI</code></li>
+<li>Wallet-related APIs here now consistently use the original crypto name (without K/M/B prefix) for both request and response payloads. This matches the base field shown in the <a href="https://btsecom.github.io/docs/futuresV2_3/en/#market-summary">Market Summary</a> API. Example: <code>PEIPEI</code></li>
+</ul></li>
+</ul>
+<h2 id='version-1-1-3-10th-july-2025'>Version 1.1.3 (10th July 2025)</h2>
+<ul>
+<li>[<strong>IMPORTANT</strong>] BTSE will phase out support for two open API endpoints by <strong>July 30, 2025</strong>. The following endpoints will be deprecated:
+
+<ul>
+<li><a href="#query-available-crypto-network-list-for-currency-deprecated"><code>Query available crypto network list for currency</code></a></li>
+<li><a href="#query-exchange-rate-between-assets-deprecated"><code>Query exchange rate between assets</code></a></li>
+</ul></li>
+</ul>
+
+<p>We encourage developers to transition away from these endpoints as they will no longer be supported after the end of July.</br>
+  A new, improved endpoint to replace these can be accessed here:</p>
+
+<ul>
+<li><a href="#query-crypto-networks"><code>Query crypto networks</code></a></li>
+<li><a href="#query-asset-exchange-rate"><code>Query asset exchange rate</code></a></li>
+</ul>
+<h2 id='version-1-1-2-10th-april-2024'>Version 1.1.2 (10th April 2024)</h2>
 <ul>
 <li>Update description of <code>status</code> and <code>type</code> in <a href="#query-wallet-history"><code>Query Wallet History</code></a></li>
 </ul>
@@ -390,6 +428,11 @@
 <ul>
 <li><code>https://api.btse.com/spot</code></li>
 </ul></li>
+<li>HTTP (for <a href="#query-crypto-networks"><code>Query crypto networks</code></a> and <a href="#query-asset-exchange-rate"><code>Query asset exchange rate</code></a>)
+
+<ul>
+<li><code>https://api.btse.com/</code></li>
+</ul></li>
 <li>Websocket
 
 <ul>
@@ -409,6 +452,11 @@
 <ul>
 <li><code>https://testapi.btse.io/spot</code></li>
 </ul></li>
+<li>HTTP (for <a href="#query-crypto-networks"><code>Query crypto networks</code></a> and <a href="#query-asset-exchange-rate"><code>Query asset exchange rate</code></a>)
+
+<ul>
+<li><code>https://testapi.btse.io/</code></li>
+</ul></li>
 <li>Websocket
 
 <ul>
@@ -423,12 +471,12 @@
 <li><p>API Key (request-api)</p>
 
 <ul>
-<li>Parameter Name: <code>request-api</code>, in: header. API key is obtained from BTSE platform as a string</li>
+<li>Parameter Name: <code>request-api</code>, in: header. API key is obtained from BTSE platform as a String</li>
 </ul></li>
 <li><p>API Key (request-nonce)</p>
 
 <ul>
-<li>Parameter Name: <code>request-nonce</code>, in: header. Representation of current timestamp in long format</li>
+<li>Parameter Name: <code>request-nonce</code>, in: header. Representation of current timestamp in Long format</li>
 </ul></li>
 <li><p>API Key (request-sign)</p>
 
@@ -485,7 +533,11 @@
 <li>429 - Too many requests. Indicates that the client has exceeded the rates limits set by the server. Refer to Rate Limits for more details</li>
 <li>500 - Internal server error. Indicates that the server encountered an unexpected condition resulting in not being able to fulfill the request</li>
 </ul>
-<h1 id='public-endpoints'>Public Endpoints</h1><h2 id='query-available-crypto-network-list-for-currency'>Query available crypto network list for currency</h2>
+<h1 id='public-endpoints'>Public Endpoints</h1>
+<p>For crypto with small prices, the <a href="https://btsecom.github.io/docs/futuresV2_3/en/#market-summary">Market Summary</a> API displays them using K/M/B prefixes in <code>symbol</code> field and process trades with the corresponding quantities. (ex. <code>K_PEIPEI</code>) </p>
+
+<p>However, Wallet-related APIs display the actual crypto information, so both requests and responses will use the original crypto name, same as <code>base</code> field in <a href="https://btsecom.github.io/docs/futuresV2_3/en/#market-summary">Market Summary</a> API. (ex. <code>PEIPEI</code>)</p>
+<h2 id='query-available-crypto-network-list-for-currency-deprecated'>Query available crypto network list for currency (Deprecated)</h2>
 <blockquote>
 <p>Response</p>
 </blockquote>
@@ -496,7 +548,7 @@
 </span></code></pre></div>
 <p><code>GET /api/v3.2/availableCurrencyNetworks</code></p>
 
-<p>Get available crypto network list for currency.</p>
+<p>Get available crypto network list for currency. This endpoint will be deprecated after <strong>July 30, 2025</strong>. Please replace this endpoint with <a href="#query-crypto-networks"><code>Query crypto networks</code></a>.</p>
 <h3 id='request-parameters'>Request Parameters</h3>
 <table><thead>
 <tr>
@@ -508,7 +560,7 @@
 </thead><tbody>
 <tr>
 <td>currency</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Ex: BTC</td>
 </tr>
@@ -524,12 +576,12 @@
 </thead><tbody>
 <tr>
 <td>$network</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Name of network</td>
 </tr>
 </tbody></table>
-<h2 id='query-exchange-rate-between-assets'>Query exchange rate between assets</h2>
+<h2 id='query-exchange-rate-between-assets-deprecated'>Query exchange rate between assets (Deprecated)</h2>
 <blockquote>
 <p>Response</p>
 </blockquote>
@@ -543,7 +595,7 @@
 </span></code></pre></div>
 <p><code>GET /api/v3.2/exchangeRate</code></p>
 
-<p>Get the exchange rate between assets.</p>
+<p>Get the exchange rate between assets. This endpoint will be deprecated after <strong>July 30, 2025</strong>. Please replace this endpoint with <a href="#query-asset-exchange-rate"><code>Query asset exchange rate</code></a>.</p>
 <h3 id='request-parameters-2'>Request Parameters</h3>
 <table><thead>
 <tr>
@@ -555,13 +607,13 @@
 </thead><tbody>
 <tr>
 <td>srcCurrency</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Ex: BTC</td>
 </tr>
 <tr>
 <td>targetCurrency</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Ex: USD</td>
 </tr>
@@ -577,33 +629,365 @@
 </thead><tbody>
 <tr>
 <td>code</td>
-<td>integer</td>
+<td>Integer</td>
 <td>Yes</td>
 <td>Return code</td>
 </tr>
 <tr>
 <td>msg</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Return message</td>
 </tr>
 <tr>
 <td>time</td>
-<td>long</td>
+<td>Long</td>
 <td>Yes</td>
 <td>Unix timestamp</td>
 </tr>
 <tr>
 <td>data</td>
-<td>float</td>
+<td>Float</td>
 <td>Yes</td>
 <td>Exchange rate between assets</td>
 </tr>
 <tr>
 <td>success</td>
-<td>boolean</td>
+<td>Boolean</td>
 <td>Yes</td>
 <td>True or False</td>
+</tr>
+</tbody></table>
+<h2 id='query-crypto-networks'>Query Crypto Networks</h2>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1624989977940</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"network"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ERC20"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ethereum (ERC20)"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"depositEnable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawEnable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"confirmationTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"depositAmtMin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"depositFeeMin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"depositFeeRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"depositExtFees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"depositExtFeeRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"needAddressExtension"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawAmtMin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"36.41"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawFeeMin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6.41"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawFeeRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawExtFees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawExtFeeRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"network"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RIPPLE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ripple"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"depositEnable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawEnable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"confirmationTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"depositAmtMin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"depositFeeMin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"depositFeeRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"depositExtFees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"depositExtFeeRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"needAddressExtension"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"addressExtensionTypeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tag"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawAmtMin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.25"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawFeeMin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawFeeRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawExtFees"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawExtFeeRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>GET /public-api/wallet/v1/crypto/networks</code></p>
+
+<p>Get crypto network list with corresponding crypto.</p>
+
+<p>This API can be publicly accessed without any security headers to get a default network list.</p>
+
+<p>If you access with <code>Read</code> permission authentication, the result will be much more accurate by account setting.
+The response of <code>depositEnable</code> and <code>withdrawEnable</code> is true by default under the publicly accessed environment.</p>
+
+<ul>
+<li>The total deposit fee is <code>max(depositFeeMin, (amount * depositFeeRate)) + (depositExtFees + depositExtFeeRate * amount)</code>.</li>
+<li>The total withdrawal fee is <code>max(withdrawFeeMin, (amount * withdrawFeeRate)) + (withdrawExtFees + withdrawExtFeeRate * amount)</code>.</li>
+</ul>
+<h3 id='request-parameters-3'>Request Parameters</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>crypto</td>
+<td>String</td>
+<td>Yes</td>
+<td>Ex: BTC</td>
+</tr>
+</tbody></table>
+<h3 id='response-content-3'>Response Content</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>Object</td>
+<td>Yes</td>
+<td>Array of objects (CryptoNetworkItem)</td>
+</tr>
+<tr>
+<td>success</td>
+<td>Boolean</td>
+<td>Yes</td>
+<td>Request validation is successful or not. It will be set to <code>true</code> when the HTTP status is <code>200.</code></td>
+</tr>
+<tr>
+<td>code</td>
+<td>Integer</td>
+<td>Yes</td>
+<td>Request status code. It will be set to <code>1</code> when the request is processed successfully. When unsuccessful, there will be an error code.</td>
+</tr>
+<tr>
+<td>msg</td>
+<td>String</td>
+<td>Yes</td>
+<td>Request status message. It will be set to <code>Success</code> when the request is processed successfully. When unsuccessful, there will be an error message.</td>
+</tr>
+<tr>
+<td>time</td>
+<td>Long</td>
+<td>Yes</td>
+<td>Current unix timestamp.</td>
+</tr>
+</tbody></table>
+<h3 id='data-object-cryptonetworkitem'>Data Object (CryptoNetworkItem)</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>network</td>
+<td>String</td>
+<td>Yes</td>
+<td>Network</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Yes</td>
+<td>Network name</td>
+</tr>
+<tr>
+<td>depositEnable</td>
+<td>Boolean</td>
+<td>Yes</td>
+<td>Allow to deposit</td>
+</tr>
+<tr>
+<td>withdrawEnable</td>
+<td>Boolean</td>
+<td>Yes</td>
+<td>Allow to withdraw</td>
+</tr>
+<tr>
+<td>confirmationTime</td>
+<td>Integer</td>
+<td>No</td>
+<td>Expected block confirmation time</td>
+</tr>
+<tr>
+<td>depositAmtMin</td>
+<td>String</td>
+<td>Yes</td>
+<td>Minimum amount of deposit</td>
+</tr>
+<tr>
+<td>depositFeeMin</td>
+<td>String</td>
+<td>Yes</td>
+<td>Minimum fees of deposit</td>
+</tr>
+<tr>
+<td>depositFeeRate</td>
+<td>String</td>
+<td>Yes</td>
+<td>Fee rate of deposit</td>
+</tr>
+<tr>
+<td>depositExtFees</td>
+<td>String</td>
+<td>Yes</td>
+<td>Extra fees of deposit</td>
+</tr>
+<tr>
+<td>depositExtFeeRate</td>
+<td>String</td>
+<td>Yes</td>
+<td>Extra fee rate of deposit</td>
+</tr>
+<tr>
+<td>needAddressExtension</td>
+<td>Boolean</td>
+<td>Yes</td>
+<td>Supported address extension</td>
+</tr>
+<tr>
+<td>addressExtensionTypeName</td>
+<td>String</td>
+<td>No</td>
+<td>Address extension type (e.g. tag)</td>
+</tr>
+<tr>
+<td>withdrawAmtMin</td>
+<td>String</td>
+<td>Yes</td>
+<td>Minimum amount of withdrawal</td>
+</tr>
+<tr>
+<td>withdrawFeeMin</td>
+<td>String</td>
+<td>Yes</td>
+<td>Minimum fees of withdraw</td>
+</tr>
+<tr>
+<td>withdrawFeeRate</td>
+<td>String</td>
+<td>Yes</td>
+<td>Fee rate of withdrawal</td>
+</tr>
+<tr>
+<td>withdrawExtFees</td>
+<td>String</td>
+<td>Yes</td>
+<td>Extra fees of withdraw</td>
+</tr>
+<tr>
+<td>withdrawExtFeeRate</td>
+<td>String</td>
+<td>Yes</td>
+<td>Extra fee rate of withdraw</td>
+</tr>
+</tbody></table>
+<h2 id='query-asset-exchange-rate'>Query Asset Exchange Rate</h2>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1624989977940</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"rate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19026.12846161"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>GET /public-api/wallet/v1/assets/exchangeRate</code></p>
+
+<p>Retrieve exchange rate about a specific pair. For example, <code>baseCurrency</code> and <code>quoteCurrency</code>.</p>
+<h3 id='request-parameters-4'>Request Parameters</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>baseCurrency</td>
+<td>String</td>
+<td>Yes</td>
+<td>Example: baseCurrency=BTC</br>Base currency, such as BTC</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>String</td>
+<td>Yes</td>
+<td>Example: amount=2</br>The quantity of <code>baseCurrency</code> .</td>
+</tr>
+<tr>
+<td>quoteCurrency</td>
+<td>String</td>
+<td>Yes</td>
+<td>Example: quoteCurrency=USDT</br>Quote currency, such as USDT.</td>
+</tr>
+</tbody></table>
+<h3 id='response-content-4'>Response Content</h3><h3 id='response-content-5'>Response Content</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>data</td>
+<td>Object</td>
+<td>Yes</td>
+<td>Array of objects (CryptoNetworkItem)</td>
+</tr>
+<tr>
+<td>success</td>
+<td>Boolean</td>
+<td>Yes</td>
+<td>Request validation is successful or not. It will be set to <code>true</code> when the HTTP status is <code>200.</code></td>
+</tr>
+<tr>
+<td>code</td>
+<td>Integer</td>
+<td>Yes</td>
+<td>Request status code. It will be set to <code>1</code> when the request is processed successfully. When unsuccessful, there will be an error code.</td>
+</tr>
+<tr>
+<td>msg</td>
+<td>String</td>
+<td>Yes</td>
+<td>Request status message. It will be set to <code>Success</code> when the request is processed successfully. When unsuccessful, there will be an error message.</td>
+</tr>
+<tr>
+<td>time</td>
+<td>Long</td>
+<td>Yes</td>
+<td>Current unix timestamp.</td>
+</tr>
+</tbody></table>
+<h3 id='data-object'>Data Object</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>rate</td>
+<td>String</td>
+<td>No</td>
+<td>The rate of base-currency to quote-currency.</td>
 </tr>
 </tbody></table>
 <h1 id='wallet-endpoints'>Wallet Endpoints</h1><h2 id='query-wallet-balance'>Query Wallet Balance</h2>
@@ -621,7 +1005,7 @@
 <p><code>GET /api/v3.2/user/wallet</code></p>
 
 <p>Query user&#39;s wallet balance. Requires <code>Read</code> permissions on the API key.</p>
-<h3 id='response-content-3'>Response Content</h3>
+<h3 id='response-content-6'>Response Content</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -632,19 +1016,19 @@
 </thead><tbody>
 <tr>
 <td>currency</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Currency</td>
 </tr>
 <tr>
 <td>total</td>
-<td>double</td>
+<td>Double</td>
 <td>Yes</td>
 <td>Total balance</td>
 </tr>
 <tr>
 <td>available</td>
-<td>double</td>
+<td>Double</td>
 <td>Yes</td>
 <td>Available balance</td>
 </tr>
@@ -657,7 +1041,7 @@
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">21.35823825</span><span class="p">,</span><span class="w">
     </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"String"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"fees"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.06</span><span class="p">,</span><span class="w">
     </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">20181213000239</span><span class="p">,</span><span class="w">
     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
@@ -673,7 +1057,7 @@
 <p><code>GET /api/v3.2/user/wallet_history</code></p>
 
 <p>Get user&#39;s wallet history records on the spot wallet</p>
-<h3 id='request-parameters-3'>Request Parameters</h3>
+<h3 id='request-parameters-5'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -684,36 +1068,36 @@
 </thead><tbody>
 <tr>
 <td>currency</td>
-<td>string</td>
+<td>String</td>
 <td>No</td>
 <td>Currency, if not specified will return all currencies</td>
 </tr>
 <tr>
 <td>startTime</td>
-<td>long</td>
+<td>Long</td>
 <td>No</td>
 <td>Starting time in milliseconds (eg. 1624987283000)</td>
 </tr>
 <tr>
 <td>endTime</td>
-<td>long</td>
+<td>Long</td>
 <td>No</td>
 <td>Ending time in milliseconds (eg. 1624987283000)</td>
 </tr>
 <tr>
 <td>count</td>
-<td>integer</td>
+<td>Integer</td>
 <td>No</td>
 <td>Number of records to return</td>
 </tr>
 <tr>
 <td>useNewSymbolNaming</td>
-<td>boolean</td>
+<td>Boolean</td>
 <td>No</td>
 <td>True to return futures market name in the new format, default to False</td>
 </tr>
 </tbody></table>
-<h3 id='response-content-4'>Response Content</h3>
+<h3 id='response-content-7'>Response Content</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -724,51 +1108,51 @@
 </thead><tbody>
 <tr>
 <td>currency</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Currency</td>
 </tr>
 <tr>
 <td>amount</td>
-<td>double</td>
+<td>Double</td>
 <td>Yes</td>
 <td>Amount in the record</td>
 </tr>
 <tr>
 <td>fees</td>
-<td>double</td>
+<td>Double</td>
 <td>Yes</td>
 <td>Fees charged if any</td>
 </tr>
 <tr>
 <td>orderId</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Internal wallet order ID</td>
 </tr>
 <tr>
 <td>wallet</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Wallet type. For spot will return <code>@SPOT</code></td>
 </tr>
 <tr>
 <td>description</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Description of the transaction</td>
 </tr>
 <tr>
 <td>status</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>The status of the record is as follows<br/><code>PROCESSING</code><br/><code>CANCELLED</code><br/><code>COMPLETED</code><br/><code>EXPIRED</code><br/><code>FAILURE</code><br/><code>PENDING</code></td>
 </tr>
 <tr>
 <td>type</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
-<td>The type of the record is as follows<br/><code>Deposit</code><br/><code>Withdraw</code><br/><code>Convert fiat</code><br/><code>Transfer_Out</code><br/><code>Transfer_In</code><br/><code>ReferralEarning</code><br/><code>Trading Fee Stake Freeze</code><br/><code>Trading Fee Stake Unfreeze</code><br/><code>Sub Account Transfer In</code><br/><code>Sub Account Transfer Out</code><br/><code>express buy</code><br/><code>Strategy Income</code><br/><code>Strategy Pay</code><br/><code>token voucher in</code><br/><code>spot trading fee rebate</code><br/><code>futures trading fee rebat</code><br/><code>trial fund</code><br/><code>general trading fee rebate</code><br/><code>token voucher out</code></td>
+<td>The type of the record is as follows<br/><code>Deposit</code><br/><code>Withdraw</code><br/><code>Convert fiat</code><br/><code>Transfer_Out</code><br/><code>Transfer_In</code><br/><code>ReferralEarning</code><br/><code>Trading Fee Stake Freeze</code><br/><code>Trading Fee Stake Unfreeze</code><br/><code>Sub Account Transfer In</code><br/><code>Sub Account Transfer Out</code><br/><code>express buy</code><br/><code>Strategy Income</code><br/><code>Strategy Pay</code><br/><code>token voucher in</code><br/><code>spot trading fee rebate</code><br/><code>futures trading fee rebate</code><br/><code>trial fund</code><br/><code>general trading fee rebate</code><br/><code>token voucher out</code></td>
 </tr>
 </tbody></table>
 <h2 id='create-wallet-address'>Create Wallet Address</h2>
@@ -776,7 +1160,8 @@
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-LIQUID"</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"network"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LIQUID"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
@@ -789,10 +1174,10 @@
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<p><code>POST /api/v3.2/user/wallet/address</code></p>
+<p><code>POST /api/v3.2/user/wallet/address</code> or <code>POST /api/v3.3/user/wallet/address</code></p>
 
 <p>Creates a wallet address. If the address created has not been used before, a 400 error will return with the existing unused address. To use this API, <code>Wallet</code> permission is required.</p>
-<h3 id='request-parameters-4'>Request Parameters</h3>
+<h3 id='request-parameters-6'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -803,18 +1188,18 @@
 </thead><tbody>
 <tr>
 <td>currency</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Ex: BTC</td>
 </tr>
 <tr>
 <td>network</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Ex: BITCOIN</td>
 </tr>
 </tbody></table>
-<h3 id='response-content-5'>Response Content</h3>
+<h3 id='response-content-8'>Response Content</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -825,13 +1210,13 @@
 </thead><tbody>
 <tr>
 <td>address</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Blockchain address</td>
 </tr>
 <tr>
 <td>created</td>
-<td>long</td>
+<td>Long</td>
 <td>Yes</td>
 <td>Created timestamp</td>
 </tr>
@@ -846,10 +1231,10 @@
   </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Blockchain address"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><code>DELETE /api/v3.2/user/wallet/address</code></p>
+<p><code>DELETE /api/v3.2/user/wallet/address</code> or <code>DELETE /api/v3.3/user/wallet/address</code></p>
 
 <p>Delete  wallet address. If the address has been delete, a 400 error will return. To use this API, <code>Wallet</code> permission is required.</p>
-<h3 id='request-parameters-5'>Request Parameters</h3>
+<h3 id='request-parameters-7'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -860,19 +1245,19 @@
 </thead><tbody>
 <tr>
 <td>currency</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Ex: BTC</td>
 </tr>
 <tr>
 <td>network</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Ex: BITCOIN</td>
 </tr>
 <tr>
 <td>address</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Ex: Blockchain address</td>
 </tr>
@@ -896,10 +1281,10 @@
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<p><code>GET /api/v3.2/user/wallet/address</code></p>
+<p><code>GET /api/v3.2/user/wallet/address</code> or <code>GET /api/v3.3/user/wallet/address</code></p>
 
 <p>Gets a wallet address. To use this API, <code>Wallet</code> permission is required.</p>
-<h3 id='request-parameters-6'>Request Parameters</h3>
+<h3 id='request-parameters-8'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -910,18 +1295,18 @@
 </thead><tbody>
 <tr>
 <td>currency</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Ex: BTC</td>
 </tr>
 <tr>
 <td>network</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Ex: BITCOIN</td>
 </tr>
 </tbody></table>
-<h3 id='response-content-6'>Response Content</h3>
+<h3 id='response-content-9'>Response Content</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -932,13 +1317,13 @@
 </thead><tbody>
 <tr>
 <td>address</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Blockchain address</td>
 </tr>
 <tr>
 <td>created</td>
-<td>long</td>
+<td>Long</td>
 <td>Yes</td>
 <td>Created timestamp</td>
 </tr>
@@ -958,13 +1343,13 @@
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"withdraw_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;withdrawal ID&gt;"</span><span class="w">
+  </span><span class="nl">"withdrawId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;withdrawal ID&gt;"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><code>POST /api/v3.2/user/wallet/withdraw</code></p>
+<p><code>POST /api/v3.2/user/wallet/withdraw</code> or <code>POST /api/v3.3/user/wallet/withdraw</code></p>
 
 <p>Performs a wallet withdrawal. To use this API, <code>Withdraw</code> permission is required.</p>
-<h3 id='request-parameters-7'>Request Parameters</h3>
+<h3 id='request-parameters-9'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -975,36 +1360,36 @@
 </thead><tbody>
 <tr>
 <td>currency</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Currency-Network pair <br> Currency list can be retrieved from <a href="#query-available-currency-list-for-wallet-action">Available currency list for action</a> <br> Network list can be retrieved from <a href="#query-available-crypto-network-list-for-currency">Available network list for currency</a></td>
 </tr>
 <tr>
 <td>address</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Blockchain address</td>
 </tr>
 <tr>
 <td>tag</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Tag, used only by some blockchain (eg. XRP)</td>
 </tr>
 <tr>
 <td>amount</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Amount to withdraw (Max decimal supported is <code>8</code> for all currencies). Will return Invalid withdraw amount (code: 3506) if exceeds</td>
 </tr>
 <tr>
 <td>includeWithdrawFee</td>
-<td>boolean</td>
+<td>Boolean</td>
 <td>No</td>
 <td>If true or the field doesn&#39;t exist, the fee is included in amount. Otherwise, the fee is extra added and the deducted amount can be larger than the amount claimed</td>
 </tr>
 </tbody></table>
-<h3 id='response-content-7'>Response Content</h3>
+<h3 id='response-content-10'>Response Content</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1014,8 +1399,8 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>withdraw_id</td>
-<td>string</td>
+<td>withdrawId</td>
+<td>String</td>
 <td>Yes</td>
 <td>Internal withdrawal ID. References the <code>orderID</code> field in <code>wallet_history</code> API. As withdrawal will not be processed immediately. User can query the wallet history API to check on the status of the withdrawal</td>
 </tr>
@@ -1035,7 +1420,7 @@
 <p><code>GET /api/v3.2/availableCurrencies</code></p>
 
 <p>Get available currency list for wallet action.</p>
-<h3 id='request-parameters-8'>Request Parameters</h3>
+<h3 id='request-parameters-10'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1051,7 +1436,7 @@
 <td>CONVERT, WITHDRAW, SEND (transfer)</td>
 </tr>
 </tbody></table>
-<h3 id='response-content-8'>Response Content</h3>
+<h3 id='response-content-11'>Response Content</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1062,7 +1447,7 @@
 </thead><tbody>
 <tr>
 <td>$currencyName</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Name of currency</td>
 </tr>
@@ -1091,7 +1476,7 @@
 <p><code>POST /api/v3.2/user/wallet/convert</code></p>
 
 <p>Performs a currency conversion from wallet. To use this API, <code>Wallet</code> permission is required. To get supported currency list please check <a href="#query-available-currency-list-for-wallet-action">Available currency list for action</a></p>
-<h3 id='request-parameters-9'>Request Parameters</h3>
+<h3 id='request-parameters-11'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1102,24 +1487,24 @@
 </thead><tbody>
 <tr>
 <td>amount</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>amount of currency to convert</td>
 </tr>
 <tr>
 <td>fromAsset</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>source currency to be converted</td>
 </tr>
 <tr>
 <td>toAsset</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>destination currency</td>
 </tr>
 </tbody></table>
-<h3 id='response-content-9'>Response Content</h3>
+<h3 id='response-content-12'>Response Content</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1130,31 +1515,31 @@
 </thead><tbody>
 <tr>
 <td>amount</td>
-<td>float</td>
+<td>Float</td>
 <td>Yes</td>
 <td>amount of source currency to be converted</td>
 </tr>
 <tr>
 <td>settlementAmount</td>
-<td>float</td>
+<td>Float</td>
 <td>Yes</td>
 <td>amount of converted destination currency</td>
 </tr>
 <tr>
 <td>amountCurrency</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>source currency</td>
 </tr>
 <tr>
 <td>settlementCurrency</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>destination currency</td>
 </tr>
 <tr>
 <td>rate</td>
-<td>float</td>
+<td>Float</td>
 <td>Yes</td>
 <td>exchange rate</td>
 </tr>
@@ -1180,10 +1565,10 @@
   </span><span class="nl">"toUserMail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"james.bond@google.com"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><code>POST /api/v3.2/user/wallet/transfer</code></p>
+<p><code>POST /api/v3.2/user/wallet/transfer</code> or <code>POST /api/v3.3/user/wallet/transfer</code></p>
 
 <p>Performs a internal currency transfer to other user from wallet. To use this API, <code>Transfer</code> permission is required. To get supported currency list please check <a href="#query-available-currency-list-for-wallet-action">Available currency list for action</a></p>
-<h3 id='request-parameters-10'>Request Parameters</h3>
+<h3 id='request-parameters-12'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1194,36 +1579,36 @@
 </thead><tbody>
 <tr>
 <td>amount</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>amount of currency to transfer</td>
 </tr>
 <tr>
 <td>asset</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>currency to be transferred</td>
 </tr>
 <tr>
 <td>toUser</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>receiver account</td>
 </tr>
 <tr>
 <td>toUserMail</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>receiver email</td>
 </tr>
 <tr>
 <td>useNewSymbolNaming</td>
-<td>boolean</td>
+<td>Boolean</td>
 <td>No</td>
 <td>True if use new futures market name in asset field, default to False</td>
 </tr>
 </tbody></table>
-<h3 id='response-content-10'>Response Content</h3>
+<h3 id='response-content-13'>Response Content</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1234,25 +1619,25 @@
 </thead><tbody>
 <tr>
 <td>amount</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>amount of currency to transfer</td>
 </tr>
 <tr>
 <td>asset</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>currency to be transferred</td>
 </tr>
 <tr>
 <td>toUser</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>receiver account</td>
 </tr>
 <tr>
 <td>toUserMail</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>receiver email</td>
 </tr>
@@ -1283,10 +1668,10 @@
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><code>POST /api/v3.2/subaccount/wallet/history</code></p>
+<p><code>GET /api/v3.2/subaccount/wallet/history</code></p>
 
 <p>Query transfer history for subaccounts</p>
-<h3 id='request-parameters-11'>Request Parameters</h3>
+<h3 id='request-parameters-13'>Request Parameters</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1297,30 +1682,30 @@
 </thead><tbody>
 <tr>
 <td>startTime</td>
-<td>long</td>
+<td>Long</td>
 <td>No</td>
 <td>Starting time in milliseconds (eg. 1624987283000)</td>
 </tr>
 <tr>
 <td>endTime</td>
-<td>long</td>
+<td>Long</td>
 <td>No</td>
 <td>Ending time in milliseconds (eg. 1624987283000)</td>
 </tr>
 <tr>
 <td>page</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Page number to query, default to 1 (1-based)</td>
 </tr>
 <tr>
 <td>pageSize</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>Number of records in a page, default to 10, maximum 50</td>
 </tr>
 </tbody></table>
-<h3 id='response-content-11'>Response Content</h3>
+<h3 id='response-content-14'>Response Content</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1331,49 +1716,49 @@
 </thead><tbody>
 <tr>
 <td>totalRows</td>
-<td>integer</td>
+<td>Integer</td>
 <td>Yes</td>
 <td>Total records</td>
 </tr>
 <tr>
 <td>pageSize</td>
-<td>integer</td>
+<td>Integer</td>
 <td>Yes</td>
 <td>Number of records in a page</td>
 </tr>
 <tr>
 <td>currentPage</td>
-<td>integer</td>
+<td>Integer</td>
 <td>Yes</td>
 <td>current page number</td>
 </tr>
 <tr>
 <td>timestamp</td>
-<td>integer</td>
+<td>Integer</td>
 <td>Yes</td>
 <td>Unix timestamp</td>
 </tr>
 <tr>
 <td>fromUser</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>sender account</td>
 </tr>
 <tr>
 <td>receiver</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>receiver account</td>
 </tr>
 <tr>
 <td>currency</td>
-<td>string</td>
+<td>String</td>
 <td>Yes</td>
 <td>currency of transferred</td>
 </tr>
 <tr>
 <td>amount</td>
-<td>integer</td>
+<td>Integer</td>
 <td>Yes</td>
 <td>amount of currency</td>
 </tr>
@@ -1395,6 +1780,10 @@ const TAB_MAP = {
     en: 'Spot',
     cn: '现货'
   },
+  spotV3_3: {
+    en: 'SpotV3.3',
+    cn: '现货V3.3'
+  },
   futures: {
     en: 'Futures',
     cn: '期货'
@@ -1402,6 +1791,10 @@ const TAB_MAP = {
   futuresV2_2: {
     en: 'FuturesV2.2',
     cn: '期货V2.2'
+  },
+  futuresV2_3: {
+    en: 'FuturesV2.3',
+    cn: '期货V2.3'
   },
   otc: {
     en: 'OTC',
